@@ -1,21 +1,15 @@
-import{test,expect} from "@playwright/test";
+import{test,expect} from "../base/pomFixture";
+import * as data from "../test-data/addToCart.json";
 
-import LoginPage from "../pages/loginPage"
-import RegisterPage from "../pages/registerPage"
-import HomePage from "../pages/homePage"
-import SpecialHotPage from "../pages/specialHotPage"
-
-const email= "pravin500@mail.com";
-const password = "pravin@12234";
-test("Register", async ({page, baseURL})=>{
-  const register = new RegisterPage(page);    
+test("Register", async ({page, baseURL,registerPage})=>{
+//   const register = new RegisterPage(page);    
   await page.goto(`${baseURL}route=account/register`);
-  await register.enterFirstName("pravin");
-  await register.enterLastName("agale");
-  await register.enterEmail(email);
-  await register.enterTelephone("9877654333");
-  await register.enterPassword(password);
-  await register.enterConfirmPassword(password);
-  expect(register.isSubscribeChecked()).toBeChecked();
-  await register.clickContinueToRegisterBtn();
+  await registerPage.enterFirstName(data.fistname);
+  await registerPage.enterLastName(data.lastname);
+  await registerPage.enterEmail(data.email);
+  await registerPage.enterTelephone(data.telephone); 
+  await registerPage.enterPassword(data.password);
+  await registerPage.enterConfirmPassword(data.password);
+  expect(registerPage.isSubscribeChecked()).toBeChecked();
+  await registerPage.clickContinueToRegisterBtn();
 })
